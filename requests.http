@@ -1,0 +1,425 @@
+@token = Fd+F1OZG0fVQsIPSRxIajg==
+@host = https://teetaly-shiketsu.azurewebsites.net/api
+@wc-consumer-key = ck_62d1072d7d3d27fb904030f31f0f558b3b04a200
+@wc-consumer-secret = cs_a0a259a46c0b9848c0375b45fe025573c68084b7
+@wc-auth-token = Y2tfNjJkMTA3MmQ3ZDNkMjdmYjkwNDAzMGYzMWYwZjU1OGIzYjA0YTIwMDpjc19hMGEyNTlhNDZjMGI5ODQ4YzAzNzViNDVmZTAyNTU3M2M2ODA4NGI3
+@wc-auth-query-string = ?consumer_key={{wc-consumer-key}}&consumer_secret={{wc-consumer-secret}}
+@wc-secret = 00d463793784e3b25254dc187db5f20c7ff0b3b825ef32e3fd34d8236c91b78d
+@nodejs-host = http://app-webhooks.zvkrxaqod1-ez94drdle6mr.p.runcloud.link
+
+###
+GET {{host}}/product/detail
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/product/detail/sku/fdp-3195
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/product/detail/sku/fdp-3066
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/product/detail/sku/fdp-3083
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/product/detail/sku/fdp-5045
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###
+GET {{host}}/country/45
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/country/twoletterisocode/it
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET {{host}}/country/45/state
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# Order 1
+POST {{host}}/order
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+   "shippingAddress":{
+      "FirstName":"Pippo",
+      "LastName":"Pazzo",
+      "Email":"pippopazzo@gmail.com",
+      "CountryId":45,
+      "StateProvinceId":86,
+      "City":"Torino",
+      "AddressOne":"via stocastico",
+      "AddressTwo":"via stocastico",
+      "ZipPostalCode":"10120",
+      "PhoneNumber":"3664142678",
+      "FaxNumber":""
+   },
+   "orderItem":[
+      {
+         "productId":"936",
+         "quantity":"1",
+         "tipo": "3",
+         "sizeId":"300",
+         "colorId":"3762",
+         "customReference":"t-shirt-uomo-eagle"
+      },
+      {
+         "productId":"946",
+         "quantity":"1",
+         "tipo": "3",
+         "sizeId":"350",
+         "colorId": "339",
+         "customReference":"t-shirt-donna-eagle"
+      }
+   ]
+}
+
+###
+# Confirm Order
+GET {{host}}/order/setprintable/4293
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# Order 2
+POST {{host}}/order
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+   "shippingAddress":{
+      "FirstName":"Marty",
+      "LastName":"McFly",
+      "Email":"JohnnyB.Goode@1955.com",
+      "CountryId": 1,
+      "StateProvinceId":9,
+      "City":"Hill Valley",
+      "AddressOne":"9303 Lyon Drive",
+      "AddressTwo":"Lyon Estates",
+      "ZipPostalCode":"95420",
+      "PhoneNumber":"555-4823",
+      "FaxNumber":""
+   },
+   "orderItem":[
+      {
+         "productId":2,
+         "quantity":1,
+         "tipo": 3,
+         "sizeId":299,
+         "colorId": 3384,
+         "customReference": "1955-nov-05"//your custom identity
+      }
+   ]
+}
+
+###
+# Confirm Order
+GET {{{{host}}/api/order/setprintable/4122
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+
+GET https://figlidiputin.it/wp-json/mcteetaly/test/?s=e6067c79ebb8514d19491da72cadb43d
+Content-Type: application/json
+
+###
+POST https://figlidiputin.it/wp-json/mcteetaly/woo_order_create_webhook
+Content-Type: application/json
+x-wc-webhook-topic: order.created
+x-wc-webhook-source: https://figlidiputin.it
+
+{
+   "test": "test",
+   "i":1
+}
+
+###
+# Teetaly Webhook Test
+#10 - Completed
+#20 - Departed
+#99 - Delivered
+#In Note field with status Departed or Delivered you can find the courier with tracking number splitted by "-" (ex.: UPS-123456)
+
+POST https://figlidiputin.it/wp-json/mcteetaly/update_order_status_webhook
+Content-Type: application/json
+
+{
+   "OrderId": 4124,
+   "OrderStatusId": 20,
+   "OrderStatus": "Departed",
+   "Note": "UPS-12345678"
+}
+
+###
+# Custom Endpoints
+# Search Order By Meta
+POST https://figlidiputin.it/wp-json/mcteetaly/get_orders_by_metakey
+Content-Type: application/json
+
+{"teetaly_order_id":"4124"}
+
+###
+# Woocommerce API
+# Search Order By Meta
+GET https://figlidiputin.it/wp-json/wc/v3/orders{{wc-auth-query-string}}&meta_key=teetaly_order_id&meta_value=4124
+Content-Type: application/json
+Authorization: Basic {{wc-auth-token}}
+
+
+###
+# Get Order From Woocommerce API
+GET https://figlidiputin.it/wp-json/wc/v3/orders/4840/{{wc-auth-query-string}}
+Content-Type: application/json
+Authorization: Basic {{wc-auth-token}}
+
+###
+# Get Customer Details From Woocommerce API
+GET https://figlidiputin.it/wp-json/wc/v3/customers/3/{{wc-auth-query-string}}
+Content-Type: application/json
+Authorization: Basic {{wc-auth-token}}
+
+###
+
+POST {{nodejs-host}}/order_webhook?nosignature
+Accept: */*
+Accept-Encoding: gzip
+Connection: Keep-Alive
+Content-Type: application/json
+Host: figlidiputin.it
+Referer: {{nodejs-host}}/order_webhook?nosignature
+User-Agent: WooCommerce/4.2.2 Hookshot (WordPress/5.4.2)
+X-Wc-Webhook-Source: https://figlidiputin.it/
+X-Wc-Webhook-Topic: order.created
+X-Wc-Webhook-Resource: order
+X-Wc-Webhook-Event: created
+X-Wc-Webhook-Signature: AnoQ\/f5qaUqT8dNISmOpWEBUWrhbTkcy445ouy5e2aI=
+X-Wc-Webhook-Id: 8
+X-Wc-Webhook-Delivery-id: e0860cff8887849dd4371bc134b10dab
+
+{
+    "id": "4840",
+    "parent_id": "0",
+    "number": "4840",
+    "order_key": "wc_order_W1elTW5fvixPG",
+    "created_via": "admin",
+    "version": "4.2.2",
+    "status": "processing",
+    "currency": "EUR",
+    "date_created": "2020-07-01T05:22:17",
+    "date_created_gmt": "2020-07-01T05:22:17",
+    "date_modified": "2020-07-03T23:11:56",
+    "date_modified_gmt": "2020-07-03T23:11:56",
+    "discount_total": "0.00",
+    "discount_tax": "0.00",
+    "shipping_total": "0.00",
+    "shipping_tax": "0.00",
+    "cart_tax": "0.00",
+    "total": "120.89",
+    "total_tax": "0.00",
+    "prices_include_tax": "",
+    "customer_id": "3",
+    "customer_ip_address": "",
+    "customer_user_agent": "",
+    "customer_note": "",
+    "billing": {
+        "first_name": "Marco",
+        "last_name": "Caggiano",
+        "company": "",
+        "address_1": "via balangero",
+        "address_2": "22",
+        "city": "Torino",
+        "state": "TO",
+        "postcode": "10149",
+        "country": "IT",
+        "email": "mcisback@gmail.com",
+        "phone": "3664039547"
+    },
+    "shipping": {
+        "first_name": "Marco",
+        "last_name": "Caggiano",
+        "company": "",
+        "address_1": "via balangero",
+        "address_2": "22",
+        "city": "Torino",
+        "state": "TO",
+        "postcode": "10149",
+        "country": "IT"
+    },
+    "payment_method": "paypal",
+    "payment_method_title": "PayPal",
+    "transaction_id": "7H507482G5408892T",
+    "date_paid": "2020-07-01T05:23:25",
+    "date_paid_gmt": "2020-07-01T05:23:25",
+    "date_completed": "",
+    "date_completed_gmt": "",
+    "cart_hash": "",
+    "meta_data": [],
+    "line_items": [
+        {
+            "id": "4",
+            "name": "Telo mare Figli di Putin",
+            "product_id": "3213",
+            "variation_id": "0",
+            "quantity": "1",
+            "tax_class": "",
+            "subtotal": "29.90",
+            "subtotal_tax": "0.00",
+            "total": "29.90",
+            "total_tax": "0.00",
+            "taxes": [],
+            "meta_data": [],
+            "sku": "telo-mare-figli-di-putin",
+            "price": "29.9"
+        },
+        {
+            "id": "5",
+            "name": "Tazza in ceramica Figli di Putin",
+            "product_id": "93",
+            "variation_id": "0",
+            "quantity": "1",
+            "tax_class": "",
+            "subtotal": "20.99",
+            "subtotal_tax": "0.00",
+            "total": "20.99",
+            "total_tax": "0.00",
+            "taxes": [],
+            "meta_data": [],
+            "sku": "tazza-fdp",
+            "price": "20.99"
+        },
+        {
+            "id": "6",
+            "name": "Felpa - Siberia - Bianco, XXL",
+            "product_id": "3915",
+            "variation_id": "4778",
+            "quantity": "1",
+            "tax_class": "",
+            "subtotal": "35.00",
+            "subtotal_tax": "0.00",
+            "total": "35.00",
+            "total_tax": "0.00",
+            "taxes": [],
+            "meta_data": [
+                {
+                    "id": "55",
+                    "key": "pa_color",
+                    "value": "bianco"
+                },
+                {
+                    "id": "56",
+                    "key": "pa_size",
+                    "value": "xxl"
+                }
+            ],
+            "sku": "felpa-siberia-bianco-xxl",
+            "price": "35"
+        },
+        {
+            "id": "7",
+            "name": "Felpa - Siberia - Bianco, M",
+            "product_id": "3915",
+            "variation_id": "4775",
+            "quantity": "1",
+            "tax_class": "",
+            "subtotal": "35.00",
+            "subtotal_tax": "0.00",
+            "total": "35.00",
+            "total_tax": "0.00",
+            "taxes": [],
+            "meta_data": [
+                {
+                    "id": "66",
+                    "key": "pa_color",
+                    "value": "bianco"
+                },
+                {
+                    "id": "67",
+                    "key": "pa_size",
+                    "value": "m"
+                }
+            ],
+            "sku": "felpa-siberia-bianco-m",
+            "price": "35"
+        }
+    ],
+    "tax_lines": [],
+    "shipping_lines": [],
+    "fee_lines": [],
+    "coupon_lines": [],
+    "refunds": [],
+    "currency_symbol": "\u20ac",
+    "_links": {
+        "self": [
+            {
+                "href": "https:\/\/figlidiputin.it\/wp-json\/wc\/v3\/orders\/4840"
+            }
+        ],
+        "collection": [
+            {
+                "href": "https:\/\/figlidiputin.it\/wp-json\/wc\/v3\/orders"
+            }
+        ],
+        "customer": [
+            {
+                "href": "https:\/\/figlidiputin.it\/wp-json\/wc\/v3\/customers\/3"
+            }
+        ]
+    }
+}
+
+###
+
+POST {{nodejs-host}}/order_webhook?nosignature
+x-forwarded-for: 161.35.91.121
+x-forwarded-proto: https
+x-forwarded-port: 443
+host: app-webhooks.zvkrxaqod1-ez94drdle6mr.p.runcloud.link
+x-amzn-trace-id: Root=1-5f249854-2371ce786f220860cc6e6488
+content-length: 3179
+user-agent: WooCommerce/4.3.1 Hookshot (WordPress/5.4.2)
+accept: */*
+accept-encoding: deflate gzip
+referer: https://figlidiputin.it/
+content-type: application/json
+x-teetaly-api-env: test
+x-teetaly-api-key: Fd+F1OZG0fVQsIPSRxIajg==
+x-order-id-meta-key: teetaly_order_id
+x-order-items-meta-key: teetaly_order_items
+x-order-notes-meta-key: teetaly_order_notes
+x-wc-webhook-source: https://figlidiputin.it/
+x-wc-webhook-topic: order.updated
+x-wc-webhook-resource: order
+x-wc-webhook-event: updated
+x-wc-webhook-signature: YGlZV/zXsOxIA1zsTgh8Y3hK6SEzBJ0DVssGAGMsNsM=
+x-wc-webhook-id: 9
+x-wc-webhook-delivery-id: 43683942f34692d6384a0fe50ba35b27
+
+{"id":4840,"parent_id":0,"number":"4840","order_key":"wc_order_W1elTW5fvixPG","created_via":"admin","version":"4.3.1","status":"processing","currency":"EUR","date_created":"2020-07-01T05:22:17","date_created_gmt":"2020-07-01T05:22:17","date_modified":"2020-07-31T22:14:30","date_modified_gmt":"2020-07-31T22:14:30","discount_total":"0.00","discount_tax":"0.00","shipping_total":"0.00","shipping_tax":"0.00","cart_tax":"0.00","total":"120.89","total_tax":"0.00","prices_include_tax":false,"customer_id":3,"customer_ip_address":"","customer_user_agent":"","customer_note":"","billing":{"first_name":"Marco","last_name":"Caggiano","company":"","address_1":"via balangero","address_2":"22","city":"Torino","state":"TO","postcode":"10149","country":"IT","email":"mcisback@gmail.com","phone":"3664039547"},"shipping":{"first_name":"Marco","last_name":"Caggiano","company":"","address_1":"via balangero","address_2":"22","city":"Torino","state":"TO","postcode":"10149","country":"IT"},"payment_method":"paypal","payment_method_title":"PayPal","transaction_id":"7H507482G5408892T","date_paid":"2020-07-01T05:23:25","date_paid_gmt":"2020-07-01T05:23:25","cart_hash":"","meta_data":[{"id":32848,"key":"teetaly_order_id","value":"4124"},{"id":32849,"key":"teetaly_order_items","value":"{\"61-432-0\":7010,\"61-430-0\":7011}"},{"id":32851,"key":"teetaly_order_notes","value":"UPS-12345678"}],"line_items":[{"id":4,"name":"Telo mare Figli di Putin","product_id":3213,"variation_id":0,"quantity":1,"tax_class":"","subtotal":"29.90","subtotal_tax":"0.00","total":"29.90","total_tax":"0.00","taxes":[],"meta_data":[],"sku":"telo-mare-fdp-siberia","price":29.9},{"id":5,"name":"Tazza in ceramica Figli di Putin","product_id":93,"variation_id":0,"quantity":1,"tax_class":"","subtotal":"20.99","subtotal_tax":"0.00","total":"20.99","total_tax":"0.00","taxes":[],"meta_data":[],"sku":"tazza-fdp","price":20.99},{"id":6,"name":"Felpa - Siberia - Bianco, XXL","product_id":3915,"variation_id":4778,"quantity":1,"tax_class":"","subtotal":"35.00","subtotal_tax":"0.00","total":"35.00","total_tax":"0.00","taxes":[],"meta_data":[{"id":55,"key":"pa_color","value":"bianco"},{"id":56,"key":"pa_size","value":"xxl"}],"sku":"felpa-siberia-bianco-xxl","price":35},{"id":7,"name":"Felpa - Siberia - Bianco, M","product_id":3915,"variation_id":4775,"quantity":1,"tax_class":"","subtotal":"35.00","subtotal_tax":"0.00","total":"35.00","total_tax":"0.00","taxes":[],"meta_data":[{"id":66,"key":"pa_color","value":"bianco"},{"id":67,"key":"pa_size","value":"m"}],"sku":"felpa-siberia-bianco-m","price":35}],"tax_lines":[],"shipping_lines":[],"fee_lines":[],"coupon_lines":[],"refunds":[],"currency_symbol":"€","_links":{"self":[{"href":"https://figlidiputin.it/wp-json/wc/v3/orders/4840"}],"collection":[{"href":"https://figlidiputin.it/wp-json/wc/v3/orders"}],"customer":[{"href":"https://figlidiputin.it/wp-json/wc/v3/customers/3"}]},"teetaly":{"api_env":"test","api_key":"/S3/QIgw23FHYEq3CDVnAXNWqs71J6kA","order_id_meta_key":"teetaly_order_id","order_items_meta_key":"teetaly_order_items","order_notes_meta_key":"teetaly_order_notes"}}
+
+###
+# Test Teetaly Receiver
+
+POST https://figlidiputin.it/wp-json/mcteetaly/update_order_status_webhook
+Content-Type: application/json
+
+{
+ "OrderId": 3963,
+ "OrderStatusId": 10,
+ "OrderStatus": "Completed",
+ "Note": ""
+}
